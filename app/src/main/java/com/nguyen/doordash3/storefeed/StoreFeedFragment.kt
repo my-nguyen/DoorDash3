@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nguyen.doordash3.R
 import com.nguyen.doordash3.TCApplication
 import com.nguyen.doordash3.databinding.FragmentStoreFeedBinding
+import com.nguyen.doordash3.network.model.StoreResponse
 
 /**
  * Displays the list of Stores with its title, description and the cover image to the user.
@@ -29,15 +30,15 @@ class StoreFeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        storeFeedAdapter = StoreFeedAdapter()
+        val stores = mutableListOf<StoreResponse>()
+        storeFeedAdapter = StoreFeedAdapter(stores)
         val binding = FragmentStoreFeedBinding.bind(view)
         binding.apply {
             swipeContainer.isEnabled = false
             storesView.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(activity)
-                // TODO uncomment the line below whe Adapter is implemented
-                // adapter = storeFeedAdapter
+                adapter = storeFeedAdapter
             }
         }
     }

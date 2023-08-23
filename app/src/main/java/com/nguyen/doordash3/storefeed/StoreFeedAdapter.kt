@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nguyen.doordash3.databinding.ItemStoreBinding
+import com.nguyen.doordash3.network.model.StoreResponse
 
 /**
  * A RecyclerView.Adapter to populate the screen with a store feed.
  */
-class StoreFeedAdapter: RecyclerView.Adapter<StoreItemViewHolder>() {
+class StoreFeedAdapter(val stores: List<StoreResponse>): RecyclerView.Adapter<StoreItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreItemViewHolder {
         return StoreItemViewHolder(
@@ -17,17 +18,14 @@ class StoreFeedAdapter: RecyclerView.Adapter<StoreItemViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: StoreItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
-
+        val store = stores[position]
         with(holder.binding) {
-            name.text = TODO("provide store name")
-            description.text = TODO("provide store description")
+            name.text = store.name
+            description.text = store.description
         }
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = stores.size
 }
 
 /**
