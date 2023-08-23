@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,16 +42,23 @@ class StoreFeedFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val stores = mutableListOf<StoreResponse>()
         storeFeedAdapter = StoreFeedAdapter(stores)
         val binding = FragmentStoreFeedBinding.inflate(inflater, container, false)
         binding.apply {
-            swipeContainer.isEnabled = false
-            storesView.apply {
+            recycler.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(activity)
                 adapter = storeFeedAdapter
+            }
+
+            filter.setOnClickListener {
+                val list = stores.filter { it.name.contains(text.text) }
+                Log.d(TAG, "list size: ${list.size}")
+                stores.clear()
+                stores.addAll(list)
+                storeFeedAdapter.notifyDataSetChanged()
             }
         }
 
