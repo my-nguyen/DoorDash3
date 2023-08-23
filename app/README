@@ -1,1 +1,5 @@
-the unmodified copy of project 'android-tps-skeleton' given by DoorDash for their interview on 8/22/2023
+a copy of project 'android-tps-skeleton' given by DoorDash
+for their interview on 8/22/2023, the app must
+* display a list of stores
+* have an additional EditText and Button that filters the list of stores
+* have a small test case
