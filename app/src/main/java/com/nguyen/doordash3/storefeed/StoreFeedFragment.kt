@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nguyen.doordash3.R
 import com.nguyen.doordash3.TCApplication
+import com.nguyen.doordash3.databinding.FragmentStoreFeedBinding
 
 /**
  * Displays the list of Stores with its title, description and the cover image to the user.
@@ -19,31 +20,25 @@ class StoreFeedFragment : Fragment() {
         const val TAG = "StoreFeedFragment"
     }
     private lateinit var storeFeedAdapter: StoreFeedAdapter
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var swipeRefreshLayout : SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         TCApplication.getAppComponent().inject(this)
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_store_feed, container, false)
-        swipeRefreshLayout = view.findViewById(R.id.swipe_container)
-        // Enable if Swipe-To-Refresh functionality will be needed
-        swipeRefreshLayout.isEnabled = false
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         storeFeedAdapter = StoreFeedAdapter()
-        recyclerView = view.findViewById(R.id.stores_view)
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(activity)
-            // TODO uncomment the line below whe Adapter is implemented
-            // adapter = storeFeedAdapter
+        val binding = FragmentStoreFeedBinding.bind(view)
+        binding.apply {
+            swipeContainer.isEnabled = false
+            storesView.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(activity)
+                // TODO uncomment the line below whe Adapter is implemented
+                // adapter = storeFeedAdapter
+            }
         }
-        return view
     }
 }
